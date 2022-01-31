@@ -1,21 +1,32 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import jm.task.core.jdbc.model.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.Environment;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.*;
 
-@Table
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table (name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column
+    @Column (name = "name")
     private String name;
 
-    @Column
+    @Column (name = "lastName")
     private String lastName;
 
-    @Column
+    @Column (name = "age")
     private Byte age;
 
     public User() {
@@ -59,4 +70,10 @@ public class User {
     public void setAge(Byte age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return String.format("name: %s lastName: %s age: %d", this.getName(), this.getLastName(), this.getAge());
+    }
+
 }
